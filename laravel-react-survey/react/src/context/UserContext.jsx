@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-const initialSurveysData = [
+const tmpSurveys = [
     {
         "id": 1,
         "image_url": "https:\/\/api.yoursurveys.xyz\/images\/vJutXzn02CDwdOyh.png",
@@ -179,18 +179,19 @@ const initialUser = {
 
 export const ContextProvider = createContext({
     user: initialUser,
-    surveys: initialSurveysData,
+    surveys: [],
     token: null,
-    setToken: () => { }
+    setToken: () => { },
+    setSurveys: () => { }
 });
 
 const UserContext = ({ children }) => {
     const [user, setUser] = useState(initialUser);
     const [token, setToken] = useState('123');
-    const [surveys, setSurveys] = useState(initialSurveysData)
+    const [surveys, setSurveys] = useState(tmpSurveys)
 
     const value = {
-        token, setToken, user, setUser, surveys
+        token, setToken, user, setUser, surveys, setSurveys
     }
     return (
         <ContextProvider.Provider value={value}>

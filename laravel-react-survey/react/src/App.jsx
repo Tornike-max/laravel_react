@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage"
 import SignupPage from "./pages/SignupPage"
 import GuestLayout from "./layouts/GuestLayout"
 import AuthLayout from "./layouts/AuthLayout"
+import CreateSurvey from "./pages/CreateSurvey"
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
           <Route index element={<DashboardPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/surveys" element={<SurveysPage />} />
+          <Route path="/surveys/create" element={<CreateSurvey />} />
         </Route>
 
 
