@@ -187,7 +187,7 @@ export const ContextProvider = createContext({
 
 const UserContext = ({ children }) => {
     const [user, setUser] = useState(initialUser);
-    const [token, setToken] = useState('123');
+    const [token, setToken] = useState(null);
     const [surveys, setSurveys] = useState(tmpSurveys)
 
     const value = {
