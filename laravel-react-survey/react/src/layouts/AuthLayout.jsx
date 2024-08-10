@@ -19,7 +19,6 @@ function classNames(...classes) {
 export default function AuthLayout() {
     const { user, token } = useStateContext()
 
-    console.log(token)
     if (token === null) {
         return <Navigate to={'/login'} />
     }

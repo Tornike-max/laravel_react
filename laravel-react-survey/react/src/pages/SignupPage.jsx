@@ -1,13 +1,19 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { useSignup } from '../hooks/useSignup';
 const SignupPage = () => {
     const { register, handleSubmit, formState: { errors }, reset, getValues } = useForm();
+    const { mutate, isPending } = useSignup()
 
     const onSubmit = (data) => {
-        console.log(data)
+        if (!data.name || !data.email || !data.password) {
+            return
+        }
+        mutate(data);
     }
     return (
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form method='post' onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                     <label htmlFor="email" className="block text-lg font-semibold leading-6 text-gray-900">
                         Full Name
@@ -98,16 +104,15 @@ const SignupPage = () => {
                         type="submit"
                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                        Sign in
+                        {isPending ? 'Loading...' : 'Sign up'}
                     </button>
                 </div>
             </form>
 
-            <p className=" text-center text-md text-gray-500">
-                Not a member?{' '}
-                <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                    Start a 14 day free trial
-                </a>
+            <p className=" text-center text-md text-gray-500 mt-2">
+                <Link to={'/login'} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    Already have an account?
+                </Link>
             </p>
         </div>
     )

@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 const tmpSurveys = [
     {
@@ -187,8 +187,16 @@ export const ContextProvider = createContext({
 
 const UserContext = ({ children }) => {
     const [user, setUser] = useState(initialUser);
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const [surveys, setSurveys] = useState(tmpSurveys)
+
+    useEffect(() => {
+        if (token) {
+            localStorage.setItem('token', token)
+        } else {
+            localStorage.removeItem('token')
+        }
+    }, [token])
 
     const value = {
         token, setToken, user, setUser, surveys, setSurveys
