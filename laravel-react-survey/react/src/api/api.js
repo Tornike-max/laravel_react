@@ -9,7 +9,9 @@ export const signup = async (data) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${
+                        localStorage.getItem("token") ?? null
+                    }`,
                 },
                 body: JSON.stringify(data),
             }
@@ -34,22 +36,47 @@ export const login = async (data) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${
+                        localStorage.getItem("token") ?? null
+                    }`,
                 },
                 body: JSON.stringify(data),
             }
         );
 
         if (!response.ok) {
-            throw new Error(responseData.message || "An error occurred");
+            throw new Error(response.message || "An error occurred");
         }
 
         const responseData = await response.json();
-        // localStorage.setItem('token',responseData.)
 
-        console.log(responseData);
         return responseData;
     } catch (error) {
         return error.response.data.errors;
+    }
+};
+
+export const logout = async () => {
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}/users/logout`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(response.message || "An error occurred");
+        }
+
+        const responseData = await response.json();
+
+        return responseData;
+    } catch (error) {
+        throw new Error(error);
     }
 };

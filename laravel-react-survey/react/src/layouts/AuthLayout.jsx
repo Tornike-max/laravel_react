@@ -3,6 +3,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
 import { HiOutlineUser } from "react-icons/hi2";
 import useStateContext from '../context/useStateContext';
+import { useLogout } from '../hooks/useLogout';
 
 
 
@@ -18,13 +19,14 @@ function classNames(...classes) {
 
 export default function AuthLayout() {
     const { user, token } = useStateContext()
+    const { logoutUser, isLoggingOut } = useLogout()
 
     if (token === null) {
         return <Navigate to={'/login'} />
     }
     const handleLogout = (e) => {
         e.preventDefault();
-        console.log('hello')
+        logoutUser()
     }
     return (
         <>
@@ -76,7 +78,7 @@ export default function AuthLayout() {
                                                 onClick={(e) => handleLogout(e)}
                                                 className="w-full text-start block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                                             >
-                                                Log out
+                                                {isLoggingOut ? 'Loading...' : 'Log out'}
                                             </button>
                                         </MenuItems>
                                     </Menu>

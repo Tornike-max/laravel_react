@@ -182,7 +182,8 @@ export const ContextProvider = createContext({
     surveys: [],
     token: null,
     setToken: () => { },
-    setSurveys: () => { }
+    setSurveys: () => { },
+    setUser: () => { }
 });
 
 const UserContext = ({ children }) => {
